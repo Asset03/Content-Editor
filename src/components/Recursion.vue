@@ -21,7 +21,7 @@
             v-if="!isObjectOpen(data[index]) && !isEmpty(item)"
             >{...}</span
           >
-          <span class="" v-if="isEmpty(item)">Empty Object</span>
+          <span class="empty ms-2" v-if="isEmpty(item)">Empty Object</span>
 
           <div class="actions d-flex align-items-center">
             <a class="ms-2" @click="onClickEditableKey(index)"
@@ -70,7 +70,7 @@
           :contenteditable="isValueEditable(index)"
           >{{ item }}</span
         >
-        <span class="" v-else>Empty String</span>
+        <span class="empty ms-2" v-else>Empty String</span>
         <div class="actions d-flex align-items-center">
           <a class="ms-2" @click="onClickEditableKey(index)"
             ><i class="fa-solid fa-key"></i
@@ -223,5 +223,13 @@ export default {
 }
 .modal.show {
   display: block;
+}
+.empty {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 2px 12px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 }
 </style>
