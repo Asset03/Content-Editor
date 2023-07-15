@@ -112,6 +112,7 @@ import RemoveModal from "@/components/RemoveModal.vue";
 import AddProperty from "./AddProperty.vue";
 
 import { ref, computed, watch, provide } from "vue";
+import axios from "axios";
 export default {
   name: "Recursion",
   components: {
@@ -182,8 +183,16 @@ export default {
     };
 
     watch(props, (newValue) => {
-      console.log("NEW: ", newValue);
       // post method to write-file
+      const data = newValue.data;
+      axios
+        .post("http://localhost:3000/write-file", { data })
+        .then(() => {
+          console.log("Changed");
+        })
+        .catch((err) => {
+          console.error("Error: ", err);
+        });
     });
 
     provide("isRemoveModalOpen", isRemoveModalOpen);

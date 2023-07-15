@@ -1,17 +1,17 @@
-const { log } = require("console");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+app.use(cors());
+app.use(bodyParser.json());
+
 const filePath = path.join(__dirname, "data", "en.json");
+
 app.get("/read-file", (req, res) => {
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
@@ -23,12 +23,12 @@ app.get("/read-file", (req, res) => {
 });
 
 app.post("/write-file", (req, res) => {
-  const data = req.body.data;
-  fs.writeFile(filePath, data, "utf8", (err) => {
+  const newData = JSON.stringify(req.body.data, null, 2);
+  fs.writeFile(filePath, newData, "utf8", (err) => {
     if (err) {
       console.error(err);
     } else {
-      console.log("Changed");
+      console.log("changed");
     }
   });
 });
